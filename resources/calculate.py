@@ -2,49 +2,54 @@ import math
 import itertools
 
 
+
 w1_=1 #wieght
 w2_=5
-Py_=14 # duration of project in months
-D_ = 14 #total duration of temporary facility
+Py_=0.5 # duration of project activity phase y in months
+D_ = 0.1 #duration of temporary facility
 
 
-y=1 # phase numeber
-m=2 #nuber of phases
-n=11 #numer of facility
+y=1 # phase number
+m=2 #number of phases
+n=11 #number of facility
 
 
 facility_name = ["site office","labour shed","security shed","site canteen","Toilets","watertank","Batching plant","Warehouse","QC lab","Power house","Parking"]
 
 format=[("name","fijy1","tijy1","Rikl1","Pijy1","Sy1","uijy1")]
 
-fijy1 = [10,5,5,10,10,10]#trip frequency
-fijy2 = [5,5,2,1,3]#trip frequency
+fijy1 = [2,3,1,3,2,0]#trip frequency
+fijy2 = [4,3,2,1,1]#trip frequency
 tijy1 = [0,0,0,100,500,0] #transportaion cost
 tijy2 = [0,0,100,0,0] #transportaion cost
-Rikl1 = [500,10000,200,20000,10000,5000] #relocation cost
-Rikl2 = [10000,200,5000,1000,200] #relocation cost
-Pijy1 = [500,500,0,1000,1000,500] # penalty
-Pijy2 = [0,0,200,1000,0] # penalty
-Sy1 = [0,0,0,2,7,0] # material delay in days
-Sy2 = [0,0,1,0,0] # material delay in days
-uijy1 = [0,0,0,2,1,0] # transportation delay in hrs
-uijy2 = [0,0,2,0,0] # transportation delay in hrs
+Rikl1 = [500,120,200,0,0,80] #relocation cost
+Rikl2 = [0,0,150,0,0] #relocation cost
+Pijy1 = [80,90,0,0,0,0] # penalty
+Pijy2 = [0,0,200,100,0] # penalty
 
+Sy1 = [0.03,0.03,0.03,0.0998,0.065,0.0328] # installation time for temprory facility
+Sy2 = [0.03,0.065,0.03,0.03,0.03] # installation time temprory facility
+uijy1 = [0,0,0,0,0,0] # time taken for transportation of material
+uijy2 = [0.00045,0.0000913,0.00034,0.00022,0.00018] # time taken for transportation of material
 
-Ci= 3309960#site logistic cost
-da = 1 # duration required for completion of each activity
+#Ci= 283750#setup cost1
+Ci= 204230#setup cost2
+
 
 #ekl=[112,112,112,112,112,112,112,112,112,112,112,112] # distance from the facility to the site
-
-sitePosition =[(30, 120),(55, 120),(80, 120),(105, 120),(130, 120),(155, 120),(180, 120),(30, 75),(55, 75),(80, 75),(105, 75),( 130, 75),(155, 75),(180, 75),(30, 45),(55, 45),(80, 45),( 105, 45),(130, 45),( 155, 45),( 180, 45),(15, 0),(30, 0),(55, 0),(80, 0),(105, 0),( 130, 0),( 155, 0),(180, 0)]
-
-emptySlotPosition1=[( -5, 130),(-5, 85),(-5, 65),(215, 125),( 215, 95),(215, 65)]
-emptySlotPosition2=[( -5, 45),(-5, 25),(-5, 5),(215, 35),( 215, 5)]
+#site 1: draw
+#sitePosition =[(50,255),(95,255),(150,225),(190,255),(220,255),(275,255),(320,255),(50,160),(95,160),(150,160),(190,160),(220,160),(275,160),(320,160),(50,120),(95,120),(150,120),(190,120),(220,120),(275,120),(320,120),(50,20),(95,20),(150,20),(190,20),(220,20),(275,20),(320,20)]
+#emptySlotPosition1=[(-40,275),(-40,135),(-35,30),(2,170),( 2,130),(6,10)]
+#emptySlotPosition2=[(370,265),(380,200),(380,140),( 380,75),(370,25)]
+#site 2: draw1
+sitePosition =[(50,255),(95,255),(150,255),(275,255),(320,255),(50,160),(95,160),(150,160),(320,160),(370,160),(50,120),(95,120),(150,120),(320,120),(370,120),(50,20),(95,20),(150,20),(320,20),(370,20)]
+emptySlotPosition1=[(-40,275),(-40,135),(-35,30),(205,255),(195,165),(230,155)]
+emptySlotPosition2=[(375,265),(200,112),(245,115),(245,15),( 200,25)]
 
 
 def findObjectiveFunction(distance,facility_data):
   f1f = facility_data[1] * facility_data[2] * distance * Py_ + Ci + facility_data[3] + facility_data[4]
-  f2f = da + facility_data[5] + facility_data[1] * facility_data[6] * distance * Py_ + D_
+  f2f = facility_data[5] + facility_data[1] * facility_data[6] * distance * Py_ + D_
   return f1f,f2f
 
 def calculateDistance(x1,y1,x2,y2):
@@ -53,7 +58,7 @@ def calculateDistance(x1,y1,x2,y2):
    return math.sqrt(x*x + y*y)
 
 def totalObjectionValueForPlacement(facilities_data):
-  totalObjectionValue1 = 0
+  totalObjectionValue1=0
   totalObjectionValue2 = 0
   count=0
   for eachFacility in facilities_data:
@@ -112,4 +117,3 @@ def main(important_facility_data,less_important_facility_data):
       bestLessImportantPlacement = eachPossiblePlacement
 
   return bestCost1+ bestCost2 , bestTime1 + bestTime2 , bestImportantPlacement , bestLessImportantPlacement
-
