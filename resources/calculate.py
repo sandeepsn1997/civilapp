@@ -9,7 +9,7 @@ Py_=0.5 # duration of project activity phase y in months
 D_ = 0.1 #duration of temporary facility
 
 
-y=1 # phase number
+y=1 # phase numberw1_
 m=2 #number of phases
 n=11 #number of facility
 
@@ -79,7 +79,9 @@ def getAllPossiblePlacements(myList):
 
 
 
-def main(important_facility_data,less_important_facility_data):
+def main(important_facility_data,less_important_facility_data,D,P):
+  Py_=P
+  D_=D
   min = 0
   bestImportantPlacement = []
   bestCost1 = 0
