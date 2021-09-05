@@ -80,7 +80,9 @@ def getAllPossiblePlacements(myList):
 
 
 def main(important_facility_data,less_important_facility_data,D,P):
+  global Py_
   Py_=P
+  global D_
   D_=D
   min = 0
   bestImportantPlacement = []
