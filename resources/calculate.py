@@ -5,35 +5,35 @@ import itertools
 
 w1_=1 #wieght
 w2_=5
-Py_=0.5 # duration of project activity phase y in months
-D_ = 0.1 #duration of temporary facility
+#Py_=0.5 # duration of project activity phase y in months
+#D_ = 0.1 #duration of temporary facility
 
 
-y=1 # phase numberw1_
-m=2 #number of phases
-n=11 #number of facility
+#y=1 # phase numberw1_
+#m=2 #number of phases
+#n=11 #number of facility
 
 
 facility_name = ["site office","labour shed","security shed","site canteen","Toilets","watertank","Batching plant","Warehouse","QC lab","Power house","Parking"]
 
 format=[("name","fijy1","tijy1","Rikl1","Pijy1","Sy1","uijy1")]
 
-fijy1 = [2,3,1,3,2,0]#trip frequency
-fijy2 = [4,3,2,1,1]#trip frequency
-tijy1 = [0,0,0,100,500,0] #transportaion cost
-tijy2 = [0,0,100,0,0] #transportaion cost
-Rikl1 = [500,120,200,0,0,80] #relocation cost
-Rikl2 = [0,0,150,0,0] #relocation cost
-Pijy1 = [80,90,0,0,0,0] # penalty
-Pijy2 = [0,0,200,100,0] # penalty
+#fijy1 = [2,3,1,3,2,0]#trip frequency
+#fijy2 = [4,3,2,1,1]#trip frequency
+#tijy1 = [0,0,0,100,500,0] #transportaion cost
+#tijy2 = [0,0,100,0,0] #transportaion cost
+#Rikl1 = [500,120,200,0,0,80] #relocation cost
+#Rikl2 = [0,0,150,0,0] #relocation cost
+#Pijy1 = [80,90,0,0,0,0] # penalty
+#Pijy2 = [0,0,200,100,0] # penalty
 
-Sy1 = [0.03,0.03,0.03,0.0998,0.065,0.0328] # installation time for temprory facility
-Sy2 = [0.03,0.065,0.03,0.03,0.03] # installation time temprory facility
-uijy1 = [0,0,0,0,0,0] # time taken for transportation of material
-uijy2 = [0.00045,0.0000913,0.00034,0.00022,0.00018] # time taken for transportation of material
+#Sy1 = [0.03,0.03,0.03,0.0998,0.065,0.0328] # installation time for temprory facility
+#Sy2 = [0.03,0.065,0.03,0.03,0.03] # installation time temprory facility
+#uijy1 = [0,0,0,0,0,0] # time taken for transportation of material
+#uijy2 = [0.00045,0.0000913,0.00034,0.00022,0.00018] # time taken for transportation of material
 
 #Ci= 283750#setup cost1
-Ci= 204230#setup cost2
+#Ci= 204230#setup cost2
 
 
 #ekl=[112,112,112,112,112,112,112,112,112,112,112,112] # distance from the facility to the site
@@ -79,11 +79,14 @@ def getAllPossiblePlacements(myList):
 
 
 
-def main(important_facility_data,less_important_facility_data,D,P):
+def main(important_facility_data,less_important_facility_data,D,P,C):
   global Py_
   Py_=P
   global D_
   D_=D
+  global Ci
+  Ci = C
+
   min = 0
   bestImportantPlacement = []
   bestCost1 = 0

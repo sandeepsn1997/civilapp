@@ -7,7 +7,7 @@ class resultClass(Resource):
     def post(self):
         try:
             data = request.get_json()
-            return main(data["important_facility_data"], data["less_important_facility_data"],data["D"],data["P"])
+            return main(data["important_facility_data"], data["less_important_facility_data"],data["D"],data["P"],data["C"])
         except:
             return False
 
